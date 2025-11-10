@@ -43,7 +43,4 @@ public class AlertaBurnout {
     @Column(name = "recomendacoes", nullable = false, length = 1000)
     private String recomendacoes;
 
-    public enum NivelRisco {
-        BAIXO, MEDIO, ALTO, CRITICO
-    }
 }
