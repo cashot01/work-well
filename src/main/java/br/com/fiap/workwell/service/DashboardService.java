@@ -1,0 +1,60 @@
+package br.com.fiap.workwell.service;
+
+import br.com.fiap.workwell.repository.AlertaBurnoutRepository;
+import br.com.fiap.workwell.repository.CheckinDiarioRepository;
+import br.com.fiap.workwell.repository.MetricaSaudeRepository;
+import br.com.fiap.workwell.repository.UsuarioRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class DashboardService {
+
+    private final UsuarioRepository usuarioRepository;
+    private final AlertaBurnoutRepository alertaBurnoutRepository;
+    private final CheckinDiarioRepository checkinDiarioRepository;
+    private final MetricaSaudeRepository metricaSaudeRepository;
+
+    public DashboardService(UsuarioRepository usuarioRepository,
+                            AlertaBurnoutRepository alertaBurnoutRepository,
+                            CheckinDiarioRepository checkinDiarioRepository,
+                            MetricaSaudeRepository metricaSaudeRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.alertaBurnoutRepository = alertaBurnoutRepository;
+        this.checkinDiarioRepository = checkinDiarioRepository;
+        this.metricaSaudeRepository = metricaSaudeRepository;
+    }
+
+    public Long getTotalUsuarios() {
+        return usuarioRepository.count();
+    }
+
+    public Long getTotalAlertasAtivos() {
+        return alertaBurnoutRepository.countByNivelRiscoIn(new String[]{"ALTO", "CRITICO"});
+    }
+
+    public Double getSaudeGeral() {
+        // Calcula a média da qualidade do sono e atividade física dos últimos check-ins
+        Double mediaQualidadeSono = metricaSaudeRepository.findAverageQualidadeSono();
+        Double mediaAtividadeFisica = metricaSaudeRepository.findAverageAtividadeFisica();
+
+        // Fórmula simplificada para saúde geral (0-100%)
+        if (mediaQualidadeSono == null || mediaAtividadeFisica == null) {
+            return 0.0;
+        }
+
+        double score = (mediaQualidadeSono * 10) + (mediaAtividadeFisica / 6.0);
+        return Math.min(100.0, Math.max(0.0, score));
+    }
+
+    public Long getTotalCasosCriticos() {
+        return alertaBurnoutRepository.countByNivelRisco("CRITICO");
+    }
+
+    public Long getTotalCheckinsHoje() {
+        return checkinDiarioRepository.countCheckinsHoje();
+    }
+
+    public Long getTotalMetricasHoje() {
+        return metricaSaudeRepository.countMetricasHoje();
+    }
+}
