@@ -16,7 +16,6 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    @PreAuthorize("isAuthenticated()")
     public String dashboard(Model model) {
         model.addAttribute("totalUsuarios", dashboardService.getTotalUsuarios());
         model.addAttribute("totalAlertasAtivos", dashboardService.getTotalAlertasAtivos());

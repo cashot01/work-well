@@ -82,16 +82,16 @@ WHERE email = 'lucas.rodrigues@edutech.com';
 
 -- Inserir 10 checkins
 INSERT INTO checkins_diarios_workwell (usuario_id, data, nivel_stress, horas_trabalhadas, sentimentos, observacoes) VALUES
-            (3, '2024-02-04', 8, 10.5, 'ansioso,sobrecarregado', 'Deadline do projeto novo, equipe reduzida'),
-            (3, '2024-02-05', 7, 9.0, 'preocupado,cansado', 'Reuniões consecutivas, pouco tempo para codar'),
-            (3, '2024-02-06', 9, 11.0, 'exausto,estressado', 'Bug crítico em produção, trabalhei até tarde'),
-            (4, '2024-02-04', 4, 8.0, 'calmo,produtivo', 'Dia tranquilo, consegui focar nas tasks'),
-            (4, '2024-02-05', 5, 8.5, 'concentrado,motivado', 'Projeto interessante, aprendi coisas novas'),
-            (5, '2024-02-04', 6, 9.0, 'ocupada,util', 'Muitos processos seletivos, gestão de conflitos'),
-            (5, '2024-02-05', 7, 9.5, 'preocupada,empática', 'Funcionário com sinais de burnout, preciso ajudar'),
-            (6, '2024-02-04', 5, 8.0, 'confiante,satisfeito', 'Cliente satisfeito com entrega'),
-            (6, '2024-02-05', 7, 10.0, 'pressão,desafiado', 'Proposta complexa, preciso estudar mais'),
-            (7, '2024-02-04', 6, 9.5, 'motivada,competitiva', 'Bateu meta do mês, mas próximo trimestre será difícil');
+                                                                                                                        (3, '2024-02-04', 8, 10.5, 'ansioso,sobrecarregado', 'Deadline do projeto novo, equipe reduzida'),
+                                                                                                                        (3, '2024-02-05', 7, 9.0, 'preocupado,cansado', 'Reuniões consecutivas, pouco tempo para codar'),
+                                                                                                                        (3, '2024-02-06', 9, 11.0, 'exausto,estressado', 'Bug crítico em produção, trabalhei até tarde'),
+                                                                                                                        (4, '2024-02-04', 4, 8.0, 'calmo,produtivo', 'Dia tranquilo, consegui focar nas tasks'),
+                                                                                                                        (4, '2024-02-05', 5, 8.5, 'concentrado,motivado', 'Projeto interessante, aprendi coisas novas'),
+                                                                                                                        (5, '2024-02-04', 6, 9.0, 'ocupada,util', 'Muitos processos seletivos, gestão de conflitos'),
+                                                                                                                        (5, '2024-02-05', 7, 9.5, 'preocupada,empática', 'Funcionário com sinais de burnout, preciso ajudar'),
+                                                                                                                        (6, '2024-02-04', 5, 8.0, 'confiante,satisfeito', 'Cliente satisfeito com entrega'),
+                                                                                                                        (6, '2024-02-05', 7, 10.0, 'pressão,desafiado', 'Proposta complexa, preciso estudar mais'),
+                                                                                                                        (7, '2024-02-04', 6, 9.5, 'motivada,competitiva', 'Bateu meta do mês, mas próximo trimestre será difícil');
 
 -- Inserir 10 métricas de saúde
 INSERT INTO metricas_saude_workwell (usuario_id, data, qualidade_sono, atividade_fisica, isolamento_social, consumo_agua) VALUES

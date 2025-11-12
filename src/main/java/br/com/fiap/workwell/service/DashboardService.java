@@ -1,10 +1,13 @@
 package br.com.fiap.workwell.service;
 
+import br.com.fiap.workwell.model.NivelRisco;
 import br.com.fiap.workwell.repository.AlertaBurnoutRepository;
 import br.com.fiap.workwell.repository.CheckinDiarioRepository;
 import br.com.fiap.workwell.repository.MetricaSaudeRepository;
 import br.com.fiap.workwell.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DashboardService {
@@ -29,7 +32,8 @@ public class DashboardService {
     }
 
     public Long getTotalAlertasAtivos() {
-        return alertaBurnoutRepository.countByNivelRiscoIn(new String[]{"ALTO", "CRITICO"});
+        // Use o enum NivelRisco em vez de String
+        return alertaBurnoutRepository.countByNivelRiscoIn(List.of(NivelRisco.ALTO, NivelRisco.CRITICO));
     }
 
     public Double getSaudeGeral() {
@@ -47,7 +51,8 @@ public class DashboardService {
     }
 
     public Long getTotalCasosCriticos() {
-        return alertaBurnoutRepository.countByNivelRisco("CRITICO");
+        // Use o enum NivelRisco em vez de String
+        return alertaBurnoutRepository.countByNivelRisco(NivelRisco.CRITICO);
     }
 
     public Long getTotalCheckinsHoje() {
