@@ -17,8 +17,8 @@
         <div class="col-12">
             <h1 class="mb-4">
                 <i class="fas fa-sitemap me-2"></i>
-                <span th:if="${departamento.id}">Editar Departamento</span>
-                <span th:if="${!departamento.id}">Novo Departamento</span>
+                <span th:if="${departamento.id != null}">Editar Departamento</span>
+                <span th:if="${departamento.id == null}">Novo Departamento</span>
             </h1>
         </div>
     </div>

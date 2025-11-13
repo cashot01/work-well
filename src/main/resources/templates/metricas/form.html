@@ -17,8 +17,8 @@
         <div class="col-12">
             <h1 class="mb-4">
                 <i class="fas fa-heartbeat me-2"></i>
-                <span th:if="${metrica.id}">Editar Métrica</span>
-                <span th:if="${!metrica.id}">Nova Métrica</span>
+                <span th:if="${metrica.id != null}">Editar Métrica</span>
+                <span th:if="${metrica.id == null}">Nova Métrica</span>
             </h1>
         </div>
     </div>

@@ -17,8 +17,8 @@
         <div class="col-12">
             <h1 class="mb-4">
                 <i class="fas fa-clipboard-check me-2"></i>
-                <span th:if="${checkin.id}">Editar Check-in</span>
-                <span th:if="${!checkin.id}">Novo Check-in</span>
+                <span th:if="${checkin.id != null}">Editar Check-in</span>
+                <span th:if="${checkin.id == null}">Novo Check-in</span>
             </h1>
         </div>
     </div>
