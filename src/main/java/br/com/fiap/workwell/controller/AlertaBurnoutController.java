@@ -32,6 +32,7 @@ public class AlertaBurnoutController {
     public String novoAlerta(Model model) {
         model.addAttribute("alerta", new AlertaBurnout());
         model.addAttribute("usuarios", usuarioService.listarTodos());
+        model.addAttribute("niveisRisco", br.com.fiap.workwell.model.NivelRisco.values());
         return "alertas/form";
     }
 
@@ -39,6 +40,7 @@ public class AlertaBurnoutController {
     public String salvarAlerta(@Valid @ModelAttribute AlertaBurnout alerta, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("usuarios", usuarioService.listarTodos());
+            model.addAttribute("niveisRisco", br.com.fiap.workwell.model.NivelRisco.values());
             return "alertas/form";
         }
 
@@ -51,6 +53,7 @@ public class AlertaBurnoutController {
     public String editarAlerta(@PathVariable Long id, Model model) {
         model.addAttribute("alerta", alertaService.buscarPorId(id));
         model.addAttribute("usuarios", usuarioService.listarTodos());
+        model.addAttribute("niveisRisco", br.com.fiap.workwell.model.NivelRisco.values());
         return "alertas/form";
     }
 
