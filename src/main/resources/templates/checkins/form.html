@@ -12,73 +12,79 @@
 
 <div th:insert="~{fragments/menu :: sidebar}"></div>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="mb-4">
-                <i class="fas fa-clipboard-check me-2"></i>
-                <span th:if="${checkin.id != null}">Editar Check-in</span>
-                <span th:if="${checkin.id == null}">Novo Check-in</span>
-            </h1>
+<!-- Main Content -->
+<div class="main-content">
+    <div class="main-content">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="mb-4">
+                        <i class="fas fa-clipboard-check me-2"></i>
+                        <span th:if="${checkin.id != null}">Editar Check-in</span>
+                        <span th:if="${checkin.id == null}">Novo Check-in</span>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="card p-4">
+                <form th:action="@{/checkins}" th:object="${checkin}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">Usuário</label>
+                        <select id="usuario" th:field="*{usuario.id}" class="form-select"
+                                th:classappend="${#fields.hasErrors('usuario')} ? 'is-invalid' : ''">
+                            <option value="">Selecione o Usuário</option>
+                            <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
+                        </select>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="data" class="form-label">Data</label>
+                        <input type="date" id="data" th:field="*{data}" class="form-control"
+                               th:classappend="${#fields.hasErrors('data')} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('data')}" th:errors="*{data}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nivelStress" class="form-label">Nível de Stress (1-10)</label>
+                        <input type="number" id="nivelStress" th:field="*{nivelStress}" class="form-control"
+                               min="1" max="10" th:classappend="${#fields.hasErrors('nivelStress')} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('nivelStress')}" th:errors="*{nivelStress}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="horasTrabalhadas" class="form-label">Horas Trabalhadas</label>
+                        <input type="number" id="horasTrabalhadas" th:field="*{horasTrabalhadas}" class="form-control"
+                               step="0.1" min="0" max="24" th:classappend="${#fields.hasErrors('horasTrabalhadas')} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('horasTrabalhadas')}" th:errors="*{horasTrabalhadas}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sentimentos" class="form-label">Sentimentos</label>
+                        <textarea id="sentimentos" th:field="*{sentimentos}" class="form-control"
+                                  th:classappend="${#fields.hasErrors('sentimentos')} ? 'is-invalid' : ''"
+                                  placeholder="Descreva os sentimentos (ex: cansado, motivado, estressado...)"></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('sentimentos')}" th:errors="*{sentimentos}"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="observacoes" class="form-label">Observações</label>
+                        <textarea id="observacoes" th:field="*{observacoes}" class="form-control"
+                                  th:classappend="${#fields.hasErrors('observacoes')} ? 'is-invalid' : ''"
+                                  placeholder="Observações adicionais..."></textarea>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('observacoes')}" th:errors="*{observacoes}"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <a href="/checkins" class="btn btn-secondary me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="card p-4">
-        <form th:action="@{/checkins}" th:object="${checkin}" method="post">
-            <input type="hidden" th:field="*{id}" />
-
-            <div class="mb-3">
-                <label for="usuario" class="form-label">Usuário</label>
-                <select id="usuario" th:field="*{usuario.id}" class="form-select"
-                        th:classappend="${#fields.hasErrors('usuario')} ? 'is-invalid' : ''">
-                    <option value="">Selecione o Usuário</option>
-                    <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nome}"></option>
-                </select>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="data" class="form-label">Data</label>
-                <input type="date" id="data" th:field="*{data}" class="form-control"
-                       th:classappend="${#fields.hasErrors('data')} ? 'is-invalid' : ''">
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('data')}" th:errors="*{data}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="nivelStress" class="form-label">Nível de Stress (1-10)</label>
-                <input type="number" id="nivelStress" th:field="*{nivelStress}" class="form-control"
-                       min="1" max="10" th:classappend="${#fields.hasErrors('nivelStress')} ? 'is-invalid' : ''">
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('nivelStress')}" th:errors="*{nivelStress}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="horasTrabalhadas" class="form-label">Horas Trabalhadas</label>
-                <input type="number" id="horasTrabalhadas" th:field="*{horasTrabalhadas}" class="form-control"
-                       step="0.1" min="0" max="24" th:classappend="${#fields.hasErrors('horasTrabalhadas')} ? 'is-invalid' : ''">
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('horasTrabalhadas')}" th:errors="*{horasTrabalhadas}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="sentimentos" class="form-label">Sentimentos</label>
-                <textarea id="sentimentos" th:field="*{sentimentos}" class="form-control"
-                          th:classappend="${#fields.hasErrors('sentimentos')} ? 'is-invalid' : ''"
-                          placeholder="Descreva os sentimentos (ex: cansado, motivado, estressado...)"></textarea>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('sentimentos')}" th:errors="*{sentimentos}"></div>
-            </div>
-
-            <div class="mb-3">
-                <label for="observacoes" class="form-label">Observações</label>
-                <textarea id="observacoes" th:field="*{observacoes}" class="form-control"
-                          th:classappend="${#fields.hasErrors('observacoes')} ? 'is-invalid' : ''"
-                          placeholder="Observações adicionais..."></textarea>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('observacoes')}" th:errors="*{observacoes}"></div>
-            </div>
-
-            <div class="d-flex justify-content-end">
-                <a href="/checkins" class="btn btn-secondary me-2">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-        </form>
     </div>
 </div>
 
