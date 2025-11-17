@@ -19,6 +19,10 @@ public class AlertaBurnoutService {
         return alertaBurnoutRepository.findAll();
     }
 
+    public Page<AlertaBurnout> listarAlertasPaginados(Pageable pageable) {
+        return alertaBurnoutRepository.findAll(pageable);
+    }
+
     public AlertaBurnout buscarPorId(Long id) {
         return alertaBurnoutRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Alerta de burnout não encontrado"));
