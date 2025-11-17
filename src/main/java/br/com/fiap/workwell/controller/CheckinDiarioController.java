@@ -23,8 +23,8 @@ public class CheckinDiarioController {
     }
 
     @GetMapping
-    public String listarCheckins(Model model) {
-        model.addAttribute("checkins", checkinService.listarTodos());
+    public String listarCheckins(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("checkins", checkinService.listarCheckinsPaginados(pageable));
         return "checkins/lista";
     }
 
