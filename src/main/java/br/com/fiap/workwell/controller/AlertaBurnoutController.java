@@ -23,8 +23,8 @@ public class AlertaBurnoutController {
     }
 
     @GetMapping
-    public String listarAlertas(Model model) {
-        model.addAttribute("alertas", alertaService.listarTodos());
+    public String listarAlertas(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("alertas", alertaService.listarAlertasPaginados(pageable));
         return "alertas/lista";
     }
 
