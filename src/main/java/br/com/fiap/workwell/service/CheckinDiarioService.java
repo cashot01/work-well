@@ -19,6 +19,10 @@ public class CheckinDiarioService {
         return checkinDiarioRepository.findAll();
     }
 
+    public Page<CheckinDiario> listarCheckinsPaginados(Pageable pageable) {
+        return checkinDiarioRepository.findAll(pageable);
+    }
+
     public CheckinDiario buscarPorId(Long id) {
         return checkinDiarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Check-in diário não encontrado"));
