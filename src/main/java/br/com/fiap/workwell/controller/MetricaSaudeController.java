@@ -23,8 +23,8 @@ public class MetricaSaudeController {
     }
 
     @GetMapping
-    public String listarMetricas(Model model) {
-        model.addAttribute("metricas", metricaService.listarTodas());
+    public String listarMetricas(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("metricas", metricaService.listarMetricasPaginadas(pageable));
         return "metricas/lista";
     }
 
