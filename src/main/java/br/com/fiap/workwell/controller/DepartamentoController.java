@@ -23,8 +23,8 @@ public class DepartamentoController {
     }
 
     @GetMapping
-    public String listarDepartamentos(Model model) {
-        model.addAttribute("departamentos", departamentoService.listarTodos());
+    public String listarDepartamentos(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("departamentos", departamentoService.listarDepartamentosPaginados(pageable));
         return "departamentos/lista";
     }
 
