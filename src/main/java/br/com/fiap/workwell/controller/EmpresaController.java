@@ -20,8 +20,8 @@ public class EmpresaController {
     }
 
     @GetMapping
-    public String listarEmpresas(Model model) {
-        model.addAttribute("empresas", empresaService.listarTodas());
+    public String listarEmpresas(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("empresas", empresaService.listarEmpresasPaginadas(pageable));
         return "empresas/lista";
     }
 
