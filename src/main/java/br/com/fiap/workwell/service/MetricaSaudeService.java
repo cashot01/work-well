@@ -19,6 +19,10 @@ public class MetricaSaudeService {
         return metricaSaudeRepository.findAll();
     }
 
+    public Page<MetricaSaude> listarMetricasPaginadas(Pageable pageable) {
+        return metricaSaudeRepository.findAll(pageable);
+    }
+
     public MetricaSaude buscarPorId(Long id) {
         return metricaSaudeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Métrica de saúde não encontrada"));
