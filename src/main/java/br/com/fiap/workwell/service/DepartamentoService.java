@@ -19,6 +19,10 @@ public class DepartamentoService {
         return departamentoRepository.findAll();
     }
 
+    public Page<Departamento> listarDepartamentosPaginados(Pageable pageable) {
+        return departamentoRepository.findAll(pageable);
+    }
+
     public Departamento buscarPorId(Long id) {
         return departamentoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Departamento não encontrado"));
