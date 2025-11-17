@@ -50,7 +50,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="empresa : ${empresas}">
+                        <tr th:each="empresa : ${empresas.content}">
                             <td th:text="${empresa.id}"></td>
                             <td th:text="${empresa.nome}"></td>
                             <td th:text="${empresa.cnpj}"></td>
@@ -71,6 +71,30 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Controles de Paginação -->
+            <nav aria-label="Navegação de Páginas" th:if="${empresas.totalPages > 1}">
+                <ul class="pagination justify-content-center">
+                    <!-- Link para a página anterior -->
+                    <li class="page-item" th:classappend="${empresas.first} ? 'disabled'">
+                        <a class="page-link" th:href="@{/empresas(page=${empresas.number - 1}, size=${empresas.size})}" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- Links para as páginas -->
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, empresas.totalPages - 1)}" th:classappend="${i == empresas.number} ? 'active'">
+                        <a class="page-link" th:href="@{/empresas(page=${i}, size=${empresas.size})}" th:text="${i + 1}">1</a>
+                    </li>
+
+                    <!-- Link para a próxima página -->
+                    <li class="page-item" th:classappend="${empresas.last} ? 'disabled'">
+                        <a class="page-link" th:href="@{/empresas(page=${empresas.number + 1}, size=${empresas.size})}" aria-label="Próxima">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
 
     </div>

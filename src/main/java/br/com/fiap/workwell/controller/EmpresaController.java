@@ -3,6 +3,8 @@ package br.com.fiap.workwell.controller;
 import br.com.fiap.workwell.model.Empresa;
 import br.com.fiap.workwell.service.EmpresaService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

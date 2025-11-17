@@ -4,6 +4,8 @@ import br.com.fiap.workwell.model.Departamento;
 import br.com.fiap.workwell.service.DepartamentoService;
 import br.com.fiap.workwell.service.EmpresaService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

@@ -4,6 +4,8 @@ import br.com.fiap.workwell.model.AlertaBurnout;
 import br.com.fiap.workwell.service.AlertaBurnoutService;
 import br.com.fiap.workwell.service.UsuarioService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

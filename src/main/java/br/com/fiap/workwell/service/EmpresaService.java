@@ -2,6 +2,8 @@ package br.com.fiap.workwell.service;
 
 import br.com.fiap.workwell.model.Empresa;
 import br.com.fiap.workwell.repository.EmpresaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
