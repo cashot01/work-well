@@ -18,6 +18,10 @@ public class EmpresaService {
     public List<Empresa> listarTodas() {
         return empresaRepository.findAll();
     }
+    
+    public Page<Empresa> listarEmpresasPaginadas(Pageable pageable) {
+        return empresaRepository.findAll(pageable);
+    }
 
     public Empresa buscarPorId(Long id) {
         return empresaRepository.findById(id)
