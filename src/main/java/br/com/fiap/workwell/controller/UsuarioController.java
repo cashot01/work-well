@@ -2,6 +2,8 @@ package br.com.fiap.workwell.controller;
 
 import br.com.fiap.workwell.model.Usuario;
 import br.com.fiap.workwell.service.UsuarioService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +24,11 @@ public class UsuarioController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public String listarUsuarios(Model model) {
-        List<Usuario> usuarios = usuarioService.listarTodos();
-        model.addAttribute("usuarios", usuarios);
-        return "usuarios"; // Retorna o template Thymeleaf "usuarios.html"
+    public String listarUsuarios(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("usuarios", usuarioService.listarUsuariosPaginadas(pageable));
+        return "usuarios";
     }
+    
 
     @GetMapping("/acesso-negado")
     public String acessoNegado() {

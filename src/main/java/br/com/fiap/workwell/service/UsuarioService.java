@@ -1,7 +1,10 @@
 package br.com.fiap.workwell.service;
 
+import br.com.fiap.workwell.model.Empresa;
 import br.com.fiap.workwell.model.Usuario;
 import br.com.fiap.workwell.repository.UsuarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,10 @@ public class UsuarioService {
 
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
+    }
+
+    public Page<Usuario> listarUsuariosPaginadas(Pageable pageable) {
+        return usuarioRepository.findAll(pageable);
     }
 
     public Optional<Usuario> buscarPorId(Long id) {

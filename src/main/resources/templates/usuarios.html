@@ -172,7 +172,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="usuario : ${usuarios}">
+                <tr th:each="usuario : ${usuarios.content}">
                     <td th:text="${usuario.id}"></td>
                     <td th:text="${usuario.nome}"></td>
                     <td th:text="${usuario.email}"></td>
@@ -193,6 +193,30 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Controles de Paginação -->
+        <nav aria-label="Navegação de Páginas" th:if="${usuarios.totalPages > 1}" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <!-- Link para a página anterior -->
+                <li class="page-item" th:classappend="${usuarios.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/usuarios(page=${usuarios.number - 1}, size=${usuarios.size})}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- Links para as páginas -->
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, usuarios.totalPages - 1)}" th:classappend="${i == usuarios.number} ? 'active'">
+                    <a class="page-link" th:href="@{/usuarios(page=${i}, size=${usuarios.size})}" th:text="${i + 1}">1</a>
+                </li>
+
+                <!-- Link para a próxima página -->
+                <li class="page-item" th:classappend="${usuarios.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{/usuarios(page=${usuarios.number + 1}, size=${usuarios.size})}" aria-label="Próxima">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <!-- Botão Voltar -->
