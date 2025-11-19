@@ -28,7 +28,7 @@ public class UsuarioController {
         model.addAttribute("usuarios", usuarioService.listarUsuariosPaginadas(pageable));
         return "usuarios";
     }
-    
+
 
     @GetMapping("/acesso-negado")
     public String acessoNegado() {
