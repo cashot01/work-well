@@ -46,4 +46,17 @@ public class UsuarioService {
     public Optional<Usuario> buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
+
+    public String executarFnUsuarioJson(Long usuarioId) {
+        return usuarioRepository.executarFnUsuarioJson(usuarioId);
+    }
+
+    public String executarFnCompatibilidadeVaga(
+            Long usuarioId,
+            String vagaTitulo,
+            String vagaCompetencias,
+            Integer nivelStressMax) {
+        return usuarioRepository.executarFnCompatibilidadeVaga(
+                usuarioId, vagaTitulo, vagaCompetencias, nivelStressMax);
+    }
 }
