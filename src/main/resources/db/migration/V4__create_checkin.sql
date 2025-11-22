@@ -4,7 +4,7 @@ CREATE TABLE checkins_diarios_workwell (
                                            usuario_id BIGINT NOT NULL,
                                            data DATE NOT NULL,
                                            nivel_stress SMALLINT CHECK (nivel_stress BETWEEN 1 AND 10) NOT NULL,
-                                           horas_trabalhadas DECIMAL(3,1) NOT NULL,
+                                           horas_trabalhadas DOUBLE PRECISION NOT NULL,
                                            sentimentos VARCHAR(500) NOT NULL,
                                            observacoes VARCHAR(1000) NOT NULL,
                                            CONSTRAINT fk_checkins_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios_workwell(id)
