@@ -1,12 +1,8 @@
-# render.yaml — WorkWell Global Solution 2025
-services:
-  # 🐘 Banco de dados PostgreSQL
-  - type: postgres
-    name: workwell-db
-    databaseName: workwell_db
-    user: workwell_user
-    region: oregon
+# render.yaml — WorkWell Global Solution 2025 (Versão 3 - Sem serviço Postgres)
+# O Render Blueprint não suporta a criação de serviços de banco de dados diretamente no render.yaml.
+# O banco de dados deve ser criado manualmente no painel do Render e o serviço web deve ser vinculado a ele.
 
+services:
   # 🐇 RabbitMQ via CloudAMQP (add-on)
   - type: addon
     addon: cloudamqp
@@ -20,19 +16,14 @@ services:
     runtime: docker
     region: oregon
     envVars:
-      # 🔐 Banco de dados (Render injeta DATABASE_URL automaticamente)
+      # 🔐 Banco de dados (Render injeta DATABASE_URL, USERNAME, PASSWORD automaticamente)
+      # O Render injeta essas variáveis quando o serviço web é vinculado a um banco de dados interno.
       - key: SPRING_DATASOURCE_URL
         value: ${DATABASE_URL}
-        # Spring Boot 3.1+ suporta postgres:// diretamente!
-        # Se quiser forçar JDBC, use: jdbc:postgresql://${DATABASE_URL#postgres://}
       - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: workwell-db
-          property: user
+        value: ${SPRING_DATASOURCE_USERNAME}
       - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: workwell-db
-          property: password
+        value: ${SPRING_DATASOURCE_PASSWORD}
 
       # 🐇 RabbitMQ (CloudAMQP injeta CLOUDAMQP_URL)
       # O Spring Boot consegue configurar o RabbitMQ automaticamente a partir da CLOUDAMQP_URL.
