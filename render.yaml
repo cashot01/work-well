@@ -1,51 +1,47 @@
-  # render.yaml — WorkWell Global Solution 2025
-  services:
-    # 🐘 Banco de dados PostgreSQL
-    - type: postgres
-      name: workwell-db
-      databaseName: workwell_db
-      user: workwell_user
-      region: oregon
+# render.yaml — WorkWell Global Solution 2025
+services:
+  # 🐘 Banco de dados PostgreSQL
+  - type: postgres
+    name: workwell-db
+    databaseName: workwell_db
+    user: workwell_user
+    region: oregon
 
-    # 🐇 RabbitMQ via CloudAMQP (add-on)
-    - type: addon
-      addon: cloudamqp
-      name: workwell-rabbitmq
-      plan: lemur
-      region: oregon
+  # 🐇 RabbitMQ via CloudAMQP (add-on)
+  - type: addon
+    addon: cloudamqp
+    name: workwell-rabbitmq
+    plan: lemur
+    region: oregon
 
-    # 🚀 Aplicação Spring Boot (Docker)
-    - type: web
-      name: workwell-app
-      runtime: docker
-      region: oregon
-      envVars:
-        # 🔐 Banco de dados (Render injeta DATABASE_URL automaticamente)
-        - key: SPRING_DATASOURCE_URL
-          value: ${DATABASE_URL}
-          # Spring Boot 3.1+ suporta postgres:// diretamente!
-          # Se quiser forçar JDBC, use: jdbc:postgresql://${DATABASE_URL#postgres://}
-        - key: SPRING_DATASOURCE_USERNAME
-          fromDatabase:
-            name: workwell-db
-            property: user
-        - key: SPRING_DATASOURCE_PASSWORD
-          fromDatabase:
-            name: workwell-db
-            property: password
+  # 🚀 Aplicação Spring Boot (Docker)
+  - type: web
+    name: workwell-app
+    runtime: docker
+    region: oregon
+    envVars:
+      # 🔐 Banco de dados (Render injeta DATABASE_URL automaticamente)
+      - key: SPRING_DATASOURCE_URL
+        value: ${DATABASE_URL}
+        # Spring Boot 3.1+ suporta postgres:// diretamente!
+        # Se quiser forçar JDBC, use: jdbc:postgresql://${DATABASE_URL#postgres://}
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: workwell-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: workwell-db
+          property: password
 
-        # 🐇 RabbitMQ (CloudAMQP injeta CLOUDAMQP_URL)
-        # 🐇 RabbitMQ (CloudAMQP injeta CLOUDAMQP_URL)
-        # O Spring Boot consegue configurar o RabbitMQ automaticamente a partir da CLOUDAMQP_URL.
-        # As variáveis de ambiente específicas (host, port, etc.) não são necessárias se CLOUDAMQP_URL for injetada.
-        # O Render não injeta as variáveis de ambiente específicas do CloudAMQP (host, port, etc.)
-        # Ele injeta apenas a CLOUDAMQP_URL.
-        - key: SPRING_RABBITMQ_ADDRESSES
-          fromAddon:
-            name: workwell-rabbitmq
-            property: url
-        - key: SPRING_RABBITMQ_SSL_ENABLED
-          value: "true""
+      # 🐇 RabbitMQ (CloudAMQP injeta CLOUDAMQP_URL)
+      # O Spring Boot consegue configurar o RabbitMQ automaticamente a partir da CLOUDAMQP_URL.
+      - key: SPRING_RABBITMQ_ADDRESSES
+        fromAddon:
+          name: workwell-rabbitmq
+          property: url
+      - key: SPRING_RABBITMQ_SSL_ENABLED
+        value: "true"
 
       # 🤖 Hugging Face (adicione sua chave no dashboard)
       - key: HUGGINGFACE_API_KEY
@@ -54,17 +50,18 @@
       # 📦 Hibernate/Flyway
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: "none"
-        - key: SPRING_FLYWAY_ENABLED
-          value: "true"
-        - key: SPRING_FLYWAY_BASELINE_ON_MIGRATE
-          value: "true"
+      - key: SPRING_FLYWAY_ENABLED
+        value: "true"
+      - key: SPRING_FLYWAY_BASELINE_ON_MIGRATE
+        value: "true"
 
-        # 🌐 Porta (necessária para Spring Boot no Render)
-        - key: SERVER_PORT
-          value: "8080"
+      # 🌐 Porta (necessária para Spring Boot no Render)
+      - key: SERVER_PORT
+        value: "8080"
 
-      envVars:
-        - key: SPRING_PROFILES_ACTIVE
-          value: "render"
-      healthCheckPath: /actuator/health
-      healthCheckInterval: 30
+      # ⚙️ Ativação do Perfil 'render'
+      - key: SPRING_PROFILES_ACTIVE
+        value: "render"
+
+    healthCheckPath: /actuator/health
+    healthCheckInterval: 30
