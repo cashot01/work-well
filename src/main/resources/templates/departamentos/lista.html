@@ -67,22 +67,22 @@
             </div>
         </div>
 
-        <!-- Controles de Paginação -->
+
         <nav aria-label="Navegação de Páginas" th:if="${departamentos.totalPages > 1}">
             <ul class="pagination justify-content-center">
-                <!-- Link para a página anterior -->
+
                 <li class="page-item" th:classappend="${departamentos.first} ? 'disabled'">
                     <a class="page-link" th:href="@{/departamentos(page=${departamentos.number - 1}, size=${departamentos.size})}" aria-label="Anterior">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
-                <!-- Links para as páginas -->
+
                 <li class="page-item" th:each="i : ${#numbers.sequence(0, departamentos.totalPages - 1)}" th:classappend="${i == departamentos.number} ? 'active'">
                     <a class="page-link" th:href="@{/departamentos(page=${i}, size=${departamentos.size})}" th:text="${i + 1}">1</a>
                 </li>
 
-                <!-- Link para a próxima página -->
+
                 <li class="page-item" th:classappend="${departamentos.last} ? 'disabled'">
                     <a class="page-link" th:href="@{/departamentos(page=${departamentos.number + 1}, size=${departamentos.size})}" aria-label="Próxima">
                         <span aria-hidden="true">&raquo;</span>

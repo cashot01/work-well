@@ -53,14 +53,13 @@ body {
     width: 20px;
 }
 
-/* ✅ CORREÇÃO PRINCIPAL: só o main-content tem margin-left */
+
 .main-content {
     margin-left: var(--sidebar-width);
     padding: 2rem;
 }
 
-/* ✅ Containers seguem o comportamento padrão do Bootstrap (centralizados) */
-/* Removida: .container { margin-left: var(--sidebar-width); } */
+
 
 .card {
     border: none;
@@ -182,12 +181,12 @@ body {
     background-color: var(--light-bg);
 }
 
-/* ✅ Garantir quebra de texto nas tabelas (evita scroll horizontal) */
+
 .table td,
 .table th {
-    white-space: normal;       /* ← permite quebra de linha */
-    word-wrap: break-word;     /* quebra palavras longas */
-    max-width: 200px;          /* limita largura máxima útil */
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
     vertical-align: middle;
 }
 

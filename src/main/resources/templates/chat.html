@@ -123,7 +123,6 @@
 <body>
 <div th:insert="~{fragments/menu :: sidebar}"></div>
 
-<!-- Main Content -->
 <div class="main-content">
     <div class="header">
         <div class="d-flex justify-content-between align-items-center">
@@ -135,11 +134,11 @@
     </div>
 
     <div class="chat-container">
-        <!-- Mensagens de Sucesso/Erro -->
+
         <div th:if="${sucesso}" class="alert alert-success" role="alert" th:text="${sucesso}"></div>
         <div th:if="${erro}" class="alert alert-danger" role="alert" th:text="${erro}"></div>
 
-        <!-- Exibição da Conversa -->
+
         <div th:if="${situacaoUsuario}" class="message-box user-message">
             <p class="mb-0"><strong>Você:</strong></p>
             <p class="mb-0" th:text="${situacaoUsuario}"></p>
@@ -150,7 +149,7 @@
             <p class="mb-0" th:text="${aiResponse}"></p>
         </div>
 
-        <!-- Formulário de Chat -->
+
         <div class="card mt-4">
             <div class="card-header">
                 <h5 class="card-title mb-0">Descreva sua Situação</h5>

@@ -30,14 +30,14 @@
 
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome</label>
-                    <input type="text" id="nome" th:field="*{nome}" class="form-control"
+                    <input type="text" id="nome" th:field="*{nome}" class="form-control" required
                            th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid' : ''">
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                 </div>
 
                 <div class="mb-3">
                     <label for="empresa" class="form-label">Empresa</label>
-                    <select id="empresa" th:field="*{empresa.id}" class="form-select"
+                    <select id="empresa" th:field="*{empresa.id}" class="form-select" required
                             th:classappend="${#fields.hasErrors('empresa')} ? 'is-invalid' : ''">
                         <option value="">Selecione a Empresa</option>
                         <option th:each="empresa : ${empresas}" th:value="${empresa.id}" th:text="${empresa.nome}"></option>
@@ -47,7 +47,7 @@
 
                 <div class="mb-3">
                     <label for="dataCadastro" class="form-label">Data de Cadastro</label>
-                    <input type="date" id="dataCadastro" th:field="*{dataCadastro}" class="form-control"
+                    <input type="date" id="dataCadastro" th:field="*{dataCadastro}" class="form-control" required
                            th:classappend="${#fields.hasErrors('dataCadastro')} ? 'is-invalid' : ''">
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('dataCadastro')}" th:errors="*{dataCadastro}"></div>
                 </div>

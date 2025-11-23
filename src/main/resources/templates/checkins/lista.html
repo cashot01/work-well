@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <!-- Controles de Paginação -->
+
         <nav aria-label="Navegação de Páginas" th:if="${checkins.totalPages > 1}">
             <ul class="pagination justify-content-center">
                 <!-- Link para a página anterior -->
@@ -85,12 +85,12 @@
                     </a>
                 </li>
 
-                <!-- Links para as páginas -->
+
                 <li class="page-item" th:each="i : ${#numbers.sequence(0, checkins.totalPages - 1)}" th:classappend="${i == checkins.number} ? 'active'">
                     <a class="page-link" th:href="@{/checkins(page=${i}, size=${checkins.size})}" th:text="${i + 1}">1</a>
                 </li>
 
-                <!-- Link para a próxima página -->
+
                 <li class="page-item" th:classappend="${checkins.last} ? 'disabled'">
                     <a class="page-link" th:href="@{/checkins(page=${checkins.number + 1}, size=${checkins.size})}" aria-label="Próxima">
                         <span aria-hidden="true">&raquo;</span>
