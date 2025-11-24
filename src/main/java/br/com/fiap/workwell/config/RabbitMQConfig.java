@@ -13,13 +13,11 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue aiAnalysisQueue() {
-        // A fila será durável (persiste após o restart do RabbitMQ)
         return new Queue(QUEUE_AI_ANALYSIS, true);
     }
 
     @Bean
     public MessageConverter jsonMessageConverter() {
-        // Configura o conversor de mensagens para JSON, facilitando o envio de objetos Java
         return new Jackson2JsonMessageConverter();
     }
 }
