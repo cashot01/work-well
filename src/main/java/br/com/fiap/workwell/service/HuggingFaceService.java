@@ -9,10 +9,6 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Serviço para integração com a API do Hugging Face.
- * Utiliza o modelo facebook/blenderbot-400M-distill para geração de respostas conversacionais.
- */
 @Service
 public class HuggingFaceService {
 
@@ -20,7 +16,6 @@ public class HuggingFaceService {
     private final String apiKey;
     private final String modelId;
 
-    // Lista de modelos conhecidos que funcionam no novo endpoint
     private final String[] modelosCompatíveis = {
             "microsoft/DialoGPT-small",
             "microsoft/DialoGPT-medium",
@@ -54,7 +49,6 @@ public class HuggingFaceService {
     }
 
     private String tryGenerateWithMultipleEndpoints(String prompt, String model) {
-        // Tenta diferentes endpoints
         String[] endpoints = {
                 "https://api-inference.huggingface.co/models/" + model,
                 "https://router.huggingface.co/hf-inference/models/" + model,
@@ -121,7 +115,7 @@ public class HuggingFaceService {
                     return jsonResponse.substring(start, end).trim();
                 }
             }
-            return jsonResponse; // Retorna a resposta completa se não conseguir extrair
+            return jsonResponse;
         } catch (Exception e) {
             return "Erro ao extrair texto: " + e.getMessage();
         }
@@ -130,12 +124,10 @@ public class HuggingFaceService {
     public String analisarSituacao(String situacao) {
         System.out.println("🎯 Analisando situação: " + situacao);
 
-        // Tenta com o modelo principal primeiro
         String resposta = generateResponse(
                 "User: " + situacao + "\nAssistant:"
         );
 
-        // Se falhar, tenta modelos alternativos
         if (resposta.contains("Erro") || resposta.contains("falharam")) {
             for (String modelo : modelosCompatíveis) {
                 if (!modelo.equals(modelId)) {
@@ -151,7 +143,6 @@ public class HuggingFaceService {
             }
         }
 
-        // Fallback final se tudo falhar
         if (resposta.contains("Erro") || resposta.contains("falharam")) {
             return criarRespostaFallback(situacao);
         }
@@ -168,9 +159,6 @@ public class HuggingFaceService {
                 "• Estabelecer limites saudáveis entre trabalho e vida pessoal";
     }
 
-    /**
-     * Teste completo de todos os modelos
-     */
     public void testarTodosModelos() {
         System.out.println("=== 🧪 TESTE COMPLETO DE MODELOS ===");
 
@@ -179,7 +167,6 @@ public class HuggingFaceService {
             String resultado = tryGenerateWithMultipleEndpoints("Hello, test", modelo);
             System.out.println("📝 Resultado: " + resultado);
 
-            // Pequena pausa entre testes
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

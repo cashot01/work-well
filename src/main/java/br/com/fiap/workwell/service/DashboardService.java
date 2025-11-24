@@ -32,16 +32,13 @@ public class DashboardService {
     }
 
     public Long getTotalAlertasAtivos() {
-        // Use o enum NivelRisco em vez de String
         return alertaBurnoutRepository.countByNivelRiscoIn(List.of(NivelRisco.ALTO, NivelRisco.CRITICO));
     }
 
     public Double getSaudeGeral() {
-        // Calcula a média da qualidade do sono e atividade física dos últimos check-ins
         Double mediaQualidadeSono = metricaSaudeRepository.findAverageQualidadeSono();
         Double mediaAtividadeFisica = metricaSaudeRepository.findAverageAtividadeFisica();
 
-        // Fórmula simplificada para saúde geral (0-100%)
         if (mediaQualidadeSono == null || mediaAtividadeFisica == null) {
             return 0.0;
         }
@@ -51,7 +48,6 @@ public class DashboardService {
     }
 
     public Long getTotalCasosCriticos() {
-        // Use o enum NivelRisco em vez de String
         return alertaBurnoutRepository.countByNivelRisco(NivelRisco.CRITICO);
     }
 
