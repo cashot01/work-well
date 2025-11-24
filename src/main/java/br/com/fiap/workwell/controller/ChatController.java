@@ -27,7 +27,6 @@ public class ChatController {
         if (!model.containsAttribute("chatRequest")) {
             model.addAttribute("chatRequest", new ChatRequest());
         }
-        // A resposta da IA será adicionada ao modelo se existir
         return "chat";
     }
 
@@ -38,24 +37,18 @@ public class ChatController {
                                 RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
-            // Se houver erros de validação, retorna para o formulário
             return "chat";
         }
 
         try {
-            // Chama o serviço de IA para analisar a situação
             String aiResponse = chatService.analisarSituacao(chatRequest.getSituacao());
 
-            // Adiciona a resposta da IA e a situação original ao modelo para exibição
             redirectAttributes.addFlashAttribute("aiResponse", aiResponse);
             redirectAttributes.addFlashAttribute("situacaoUsuario", chatRequest.getSituacao());
 
-            // Redireciona para o GET para evitar reenvio do formulário
             return "redirect:/chat";
 
         } catch (Exception e) {
-            // Em caso de erro (ex: chave da API inválida, problema de conexão),
-            // adiciona uma mensagem de erro e retorna
             redirectAttributes.addFlashAttribute("erro", "Ocorreu um erro ao processar a solicitação de IA: " + e.getMessage());
             return "redirect:/chat";
         }
