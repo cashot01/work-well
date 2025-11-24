@@ -10,13 +10,8 @@ import java.util.List;
 
 
 public interface AlertaBurnoutRepository extends JpaRepository<AlertaBurnout, Long> {
-
-    // Use NivelRisco em vez de String
-
-
     Long countByNivelRisco(NivelRisco nivelRisco);
 
-    // Método alternativo com @Query se necessário
     @Query("SELECT COUNT(a) FROM AlertaBurnout a WHERE a.nivelRisco IN :niveisRisco")
     Long countByNivelRiscoIn(@Param("niveisRisco") List<NivelRisco> niveisRisco);
 }
